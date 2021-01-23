@@ -11,9 +11,7 @@ import utils
 
 class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
     def run(self):
-        center = True
         frame = 0
-        facing = False
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
                 frame += 1
@@ -86,6 +84,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # Set the speed to motors
                 self.left_motor.setVelocity(left_speed)
                 self.right_motor.setVelocity(right_speed)
+                frameCounter += 1
 
 
 my_robot = MyRobot()

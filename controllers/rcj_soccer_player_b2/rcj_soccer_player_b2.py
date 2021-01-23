@@ -7,7 +7,10 @@ from pathlib import Path
 sys.path.append(str(Path('.').absolute().parent))
 # You can now import scripts that you put into the folder with your
 # robot B1 controller
-from rcj_soccer_player_b1 import rcj_soccer_robot, utils
+if team == 'BLUE':
+    from rcj_soccer_player_b1 import rcj_soccer_robot, utils
+else:
+    from rcj_soccer_player_y1 import rcj_soccer_robot, utils
 ######
 
 # Feel free to import built-in libraries
@@ -50,6 +53,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # Set the speed to motors
                 self.left_motor.setVelocity(left_speed)
                 self.right_motor.setVelocity(right_speed)
+                frameCounter += 1
 
                 #if
 
