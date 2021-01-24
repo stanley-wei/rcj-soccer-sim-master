@@ -15,6 +15,8 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
                 frame += 1
+                if robot_pos['x'] < 0.38 and robot_pos['x'] > -0.37 and robot_pos['y'] < 0.05 and robot_pos['y'] > 0.05:
+                    center = True
                 if frame % 60 == 0:
                     print(center)
                 data = self.get_new_data()

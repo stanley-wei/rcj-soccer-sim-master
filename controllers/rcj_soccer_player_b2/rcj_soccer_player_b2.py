@@ -16,7 +16,6 @@ else:
 # Feel free to import built-in libraries
 import math
 
-
 class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
     def run(self):
         frame = 0
@@ -53,7 +52,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # Set the speed to motors
                 self.left_motor.setVelocity(left_speed)
                 self.right_motor.setVelocity(right_speed)
-                frameCounter += 1
+                frame += 1
 
                 #if
 
