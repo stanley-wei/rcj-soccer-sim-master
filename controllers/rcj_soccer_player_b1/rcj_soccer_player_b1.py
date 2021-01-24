@@ -15,10 +15,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
                 frame += 1
-                if robot_pos['x'] < 0.38 and robot_pos['x'] > -0.37 and robot_pos['y'] < 0.05 and robot_pos['y'] > 0.05:
-                    center = True
-                if frame % 60 == 0:
-                    print(center)
                 data = self.get_new_data()
 
                 # Get the position of our robot
@@ -31,6 +27,13 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 togo = [0.375,0]
                 v1 = robot_pos['x']-togo[0]
                 v2 = robot_pos['y']-togo[1]
+
+                if robot_pos['x'] < 0.38 and robot_pos['x'] > -0.37 and robot_pos['y'] < 0.05 and robot_pos['y'] > 0.05:
+                    center = True
+                else:
+                    center = False
+                if frame % 60 == 0:
+                    print(center)
 
                 theta=math.radians(math.atan(float(v2/v1)))
 
@@ -86,7 +89,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # Set the speed to motors
                 self.left_motor.setVelocity(left_speed)
                 self.right_motor.setVelocity(right_speed)
-                frameCounter += 1
+                frame += 1
 
 
 my_robot = MyRobot()
