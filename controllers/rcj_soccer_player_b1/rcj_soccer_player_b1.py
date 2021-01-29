@@ -12,9 +12,12 @@ import utils
 class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
     def run(self):
         frame = 0
+        center = True
+        facing = False
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
                 frame += 1
+                #print("hi")
                 data = self.get_new_data()
 
                 # Get the position of our robot
@@ -28,16 +31,18 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 v1 = robot_pos['x']-togo[0]
                 v2 = robot_pos['y']-togo[1]
 
-                if robot_pos['x'] < 0.38 and robot_pos['x'] > -0.37 and robot_pos['y'] < 0.05 and robot_pos['y'] > 0.05:
+                if robot_pos['x'] < 0.38 and robot_pos['x'] > -0.37 and robot_pos['y'] < 0.06 and robot_pos['y'] > 0.04:
                     center = True
                 else:
                     center = False
+
                 if frame % 60 == 0:
                     print(center)
 
                 theta=math.radians(math.atan(float(v2/v1)))
 
                 if center == True:
+                    print("hi")
                     if facing == True:
                         left_speed=-5
                         rights_speed=-5

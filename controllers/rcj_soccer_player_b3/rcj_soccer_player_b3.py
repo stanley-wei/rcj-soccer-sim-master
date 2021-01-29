@@ -31,24 +31,29 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 # Get angle between the robot and the ball
                 # and between the robot and the north
-                ball_angle, robot_angle = self.get_angles(ball_pos, robot_pos)
+                ball_angle, robot_angle = self.get_angles({'x':0.75,'y':0}, robot_pos)
 
                 # Compute the speed for motors
                 direction = utils.get_direction(ball_angle)
 
                 # If the robot has the ball right in front of it, go forward,
                 # rotate otherwise
-                if direction == 0:
-                    left_speed = -10
-                    right_speed = -10
-                else:
-                    left_speed = direction * 4
-                    right_speed = direction * -4
 
-                # Set the speed to motors
-                self.left_motor.setVelocity(left_speed)
-                self.right_motor.setVelocity(right_speed)
-                frameCounter += 1
+                self.left_motor.setVelocity(1)
+                self.right_motor.setVelocity(-1)
+
+                # print("angle between robot and (0.75,0): ", ball_angle)
+                # if direction == 0:
+                #     left_speed = -10
+                #     right_speed = -10
+                # else:
+                #     left_speed = direction * 4
+                #     right_speed = direction * -4
+                #
+                # # Set the speed to motors
+                # self.left_motor.setVelocity(left_speed)
+                # self.right_motor.setVelocity(right_speed)
+                # frameCounter += 1
 
 
 my_robot = MyRobot()
