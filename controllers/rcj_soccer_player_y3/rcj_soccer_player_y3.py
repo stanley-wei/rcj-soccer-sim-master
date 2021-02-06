@@ -45,6 +45,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 status = ""
                 target_x = -0.07
+                idle_speed = 2
                 if robot_pos['y'] > -0.06 and robot_pos['y'] < 0.06:
                     if ball_pos['y'] > -0.05 and ball_pos['y'] < 0.05 and robot_pos['x'] < ball_pos['x']:
                         if direction == 0:
@@ -58,6 +59,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     else:
                         if ball_pos['y'] < 0.3 and ball_pos['y'] > -0.3 and robot_pos['x'] < ball_pos['x']:
                             target_x = ball_pos['x'] - 0.08
+                            idle_speed = 10
                         if robot_angle < ((math.pi / 2) - 0.05):
                             left_speed = 2
                             right_speed = -2
@@ -68,11 +70,11 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                             status = "turning"
                         else:
                             if robot_pos['x'] < target_x:
-                                left_speed = -5
-                                right_speed = -5
+                                left_speed = -idle_speed
+                                right_speed = -idle_speed
                             else:
-                                left_speed = 5
-                                right_speed = 5
+                                left_speed = idle_speed
+                                right_speed = idle_speed
                             status = "idling"
                 else:
                     if robot_angle < (math.pi - 1):

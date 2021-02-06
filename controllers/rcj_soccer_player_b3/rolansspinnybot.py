@@ -1,7 +1,7 @@
 team = 'BLUE'
-# rcj_soccer_player controller - ROBOT Y2
+# rcj_soccer_player controller - ROBOT B3
 
-###### REQUIRED in order to import files from Y1 controller
+###### REQUIRED in order to import files from B1 controller
 import sys
 from pathlib import Path
 sys.path.append(str(Path('.').absolute().parent))
@@ -31,26 +31,29 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 # Get angle between the robot and the ball
                 # and between the robot and the north
-                ball_angle, robot_angle = self.get_angles(ball_pos, robot_pos)
+                ball_angle, robot_angle = self.get_angles({'x':0.75,'y':0}, robot_pos)
 
                 # Compute the speed for motors
                 direction = utils.get_direction(ball_angle)
 
                 # If the robot has the ball right in front of it, go forward,
                 # rotate otherwise
-                # normal forward speed is 5, but i turned it up to 10 - stanley
-                if direction == 0:
-                    left_speed = -10
-                    right_speed = -10
-                else:
-                    left_speed = direction * 4
-                    right_speed = direction * -4
 
-                # Set the speed to motors
-                self.left_motor.setVelocity(left_speed)
-                self.right_motor.setVelocity(right_speed)
+                self.left_motor.setVelocity(1)
+                self.right_motor.setVelocity(-1)
 
-                frameCounter += 1
+                # print("angle between robot and (0.75,0): ", ball_angle)
+                # if direction == 0:
+                #     left_speed = -10
+                #     right_speed = -10
+                # else:
+                #     left_speed = direction * 4
+                #     right_speed = direction * -4
+                #
+                # # Set the speed to motors
+                # self.left_motor.setVelocity(left_speed)
+                # self.right_motor.setVelocity(right_speed)
+                # frameCounter += 1
 
 
 my_robot = MyRobot()

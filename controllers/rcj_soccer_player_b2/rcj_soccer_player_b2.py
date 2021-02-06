@@ -84,34 +84,34 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # Get angle between the robot and the ball
                 # and between the robot and the north
                 ball_angle, robot_angle = self.get_angles(ball_pos, robot_pos)
-
-                toTurn = self.turnToPoint([0.5,0.5],data)
-                angle, robot_angle = self.get_angles(ball_pos, data[self.name])
-
-                if facing==False:
-                    self.left_motor.setVelocity(10)
-                    self.right_motor.setVelocity(-10)
-                    if abs(360-angle)>angle:
-                        self.left_motor.setVelocity(10)
-                        self.right_motor.setVelocity(-10)
-                    if angle<360-angle:
-                        self.left_motor.setVelocity(-10)
-                        self.right_motor.setVelocity(10)
-                if abs(angle)<=(12):
-                    self.left_motor.setVelocity(-10)
-                    self.right_motor.setVelocity(-10)
-                    facing=True
-
-                if angle>=40:
-                    facing=False
-                previousAngle=ball_angle
+                # 
+                # toTurn = self.turnToPoint([0.5,0.5],data)
+                # angle, robot_angle = self.get_angles(ball_pos, data[self.name])
+                #
+                # if facing==False:
+                #     self.left_motor.setVelocity(10)
+                #     self.right_motor.setVelocity(-10)
+                #     if abs(360-angle)>angle:
+                #         self.left_motor.setVelocity(10)
+                #         self.right_motor.setVelocity(-10)
+                #     if angle<360-angle:
+                #         self.left_motor.setVelocity(-10)
+                #         self.right_motor.setVelocity(10)
+                # if abs(angle)<=(12):
+                #     self.left_motor.setVelocity(-10)
+                #     self.right_motor.setVelocity(-10)
+                #     facing=True
+                #
+                # if angle>=40:
+                #     facing=False
+                # previousAngle=ball_angle
 
                 # if facing==True:
                 #     self.left_motor.setVelocity(0)
                 #     self.right_motor.setVelocity(0)
 
 
-                print("facing: ",facing)
+                # print("facing: ",facing)
                 # if toTurn:
                 #     self.left_motor.setVelocity(-10)
                 #     self.right_motor.setVelocity(10)
@@ -128,17 +128,17 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 # If the robot has the ball right in front of it, go forward,
                 # # rotate otherwise
-                # if direction == 0:
-                #     left_speed = -10
-                #     right_speed = -10
-                # else:
-                #     left_speed = direction * 4
-                #     right_speed = direction * -4
-                #
-                # # Set the speed to motors
-                # self.left_motor.setVelocity(left_speed)
-                # self.right_motor.setVelocity(right_speed)
-                # frame += 1
+                if direction == 0:
+                    left_speed = -10
+                    right_speed = -10
+                else:
+                    left_speed = direction * 4
+                    right_speed = direction * -4
+
+                # Set the speed to motors
+                self.left_motor.setVelocity(left_speed)
+                self.right_motor.setVelocity(right_speed)
+                frame += 1
 
                 #if
 
