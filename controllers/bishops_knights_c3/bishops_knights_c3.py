@@ -1,4 +1,4 @@
-team = 'YELLOW'
+# team = 'BLUE'
 # rcj_soccer_player controller - ROBOT Y1
 
 # Feel free to import built-in libraries
@@ -8,10 +8,10 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path('.').absolute().parent))
 # You can also import scripts that you put into the folder with controller
-if team == 'BLUE':
-    from rcj_soccer_player_b1 import rcj_soccer_robot, utils
-else:
-    from rcj_soccer_player_y1 import rcj_soccer_robot, utils
+# if team == 'BLUE':
+from bishops_knights_c1 import rcj_soccer_robot, utils
+# else:
+#     from rcj_soccer_player_y1 import rcj_soccer_robot, utils
 
 
 class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
@@ -50,7 +50,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 status = ""
                 target_x = -0.07
                 idle_speed = 4
-                if robot_pos['y'] > -0.03 and robot_pos['y'] < 0.03:
+                if robot_pos['y'] > -0.06 and robot_pos['y'] < 0.06:
                     if ball_pos['y'] > -0.05 and ball_pos['y'] < 0.05 and robot_pos['x'] * t_m < ball_pos['x'] * t_m:
                         if direction == 0:
                             left_speed = -10

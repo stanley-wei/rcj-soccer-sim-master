@@ -84,7 +84,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # Get angle between the robot and the ball
                 # and between the robot and the north
                 ball_angle, robot_angle = self.get_angles(ball_pos, robot_pos)
-                # 
+                #
                 # toTurn = self.turnToPoint([0.5,0.5],data)
                 # angle, robot_angle = self.get_angles(ball_pos, data[self.name])
                 #

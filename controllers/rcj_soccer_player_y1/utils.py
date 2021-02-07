@@ -9,5 +9,12 @@ def get_direction(ball_angle: float) -> int:
     """
     if ball_angle >= 345 or ball_angle <= 15:
         return 0
-    return -1 if ball_angle < 180 else 1
-
+    elif ball_angle >= 165 and ball_angle <= 195:
+        return 2
+    elif ball_angle <= 90:
+        return -1
+    elif ball_angle >= 180 and ball_angle <= 270:
+        return -1
+    else:
+        return 1
+    # return -1 if ball_angle < 180 else 1

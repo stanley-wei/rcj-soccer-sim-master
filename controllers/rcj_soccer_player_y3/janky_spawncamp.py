@@ -1,4 +1,4 @@
-team = 'BLUE'
+team = 'YELLOW'
 # rcj_soccer_player controller - ROBOT Y1
 
 # Feel free to import built-in libraries
@@ -17,6 +17,10 @@ else:
 class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
     def run(self):
         frameCounter = 0
+        if self.name[0] == 'Y':
+            t_m  = 1
+        else:
+            t_m = -1
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
                 data = self.get_new_data()
@@ -45,8 +49,9 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 status = ""
                 target_x = -0.07
-                if robot_pos['y'] > -0.06 and robot_pos['y'] < 0.06:
-                    if ball_pos['y'] > -0.05 and ball_pos['y'] < 0.05 and robot_pos['x'] < ball_pos['x']:
+                idle_speed = 4
+                if robot_pos['y'] > -0.03 and robot_pos['y'] < 0.03:
+                    if ball_pos['y'] > -0.05 and ball_pos['y'] < 0.05 and robot_pos['x'] * t_m < ball_pos['x'] * t_m:
                         if direction == 0:
                             left_speed = -10
                             right_speed = -10
@@ -56,8 +61,9 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                             right_speed = direction * -4
                             status = "aiming"
                     else:
-                        if ball_pos['y'] < 0.3 and ball_pos['y'] > -0.3 and robot_pos['x'] < ball_pos['x']:
+                        if ball_pos['y'] < 0.3 and ball_pos['y'] > -0.3 and robot_pos['x'] * t_m < ball_pos['x'] * t_m:
                             target_x = ball_pos['x'] - 0.08
+                            idle_speed = 10 * t_m
                         if robot_angle < ((math.pi / 2) - 0.05):
                             left_speed = 2
                             right_speed = -2
@@ -67,12 +73,12 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                             right_speed = 2
                             status = "turning"
                         else:
-                            if robot_pos['x'] < target_x:
-                                left_speed = -5
-                                right_speed = -5
+                            if robot_pos['x'] * t_m < target_x:
+                                left_speed = -idle_speed * t_m
+                                right_speed = -idle_speed * t_m
                             else:
-                                left_speed = 5
-                                right_speed = 5
+                                left_speed = idle_speed * t_m
+                                right_speed = idle_speed * t_m
                             status = "idling"
                 else:
                     if robot_angle < (math.pi - 1):
@@ -91,13 +97,13 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # Set the speed to motors
                 self.left_motor.setVelocity(left_speed)
                 self.right_motor.setVelocity(right_speed)
-                frameCounter += 1
-                if frameCounter % 60 == 0:
-                    print("Frame counter: " + str(frameCounter))
-                    print("Robot pos: " + str(robot_pos))
-                    print("Ball angle: " + str(ball_angle))
-                    print("Robot angle: " + str(robot_angle))
-                    print("Status: " + str(status))
+                # frameCounter += 1
+                # if frameCounter % 60 == 0:
+                #     print("Frame counter: " + str(frameCounter))
+                #     print("Robot pos: " + str(robot_pos))
+                #     print("Ball angle: " + str(ball_angle))
+                #     print("Robot angle: " + str(robot_angle))
+                #     print("Status: " + str(status))
 
 my_robot = MyRobot()
 my_robot.run()
