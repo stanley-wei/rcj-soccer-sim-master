@@ -94,12 +94,12 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 self.left_motor.setVelocity(left_speed)
                 self.right_motor.setVelocity(right_speed)
                 frameCounter += 1
-                if frameCounter % 60 == 0:
-                    print("Frame counter: " + str(frameCounter))
-                    print("Robot pos: " + str(robot_pos))
-                    print("Ball angle: " + str(ball_angle))
-                    print("Robot angle: " + str(robot_angle))
-                    print("Status: " + str(status))
+                # if frameCounter % 60 == 0:
+                #     print("Frame counter: " + str(frameCounter))
+                #     print("Robot pos: " + str(robot_pos))
+                #     print("Ball angle: " + str(ball_angle))
+                #     print("Robot angle: " + str(robot_angle))
+                #     print("Status: " + str(status))
 
 my_robot = MyRobot()
 my_robot.run()

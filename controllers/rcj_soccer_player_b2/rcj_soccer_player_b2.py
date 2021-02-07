@@ -18,56 +18,18 @@ else:
 import math
 
 class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
+
     def attackOrDefend(self):
-        data = self.get_new_data()
-
-        ball_pos=data['ball']
-
-        if ball_pos['x']<=-0.2:
-            return False
-            # Go attack
-        if ball_pos['x']>=-0.2:
-            return True
-            # Go defend
+        pass
 
     def turnToPoint(self, pt, data):
-        # pt = [x,y] (list of integers)
-        # print('In Go to: ')
-        dict = {}
-        dict['x']=pt[0]
-        dict['y']=pt[1]
-
-        botInfo = data[self.name]
-        dx=float(pt[0]-botInfo['x'])
-        dy=float(pt[1]-botInfo['y'])
-
-        # heading = botInfo['orientation']
-        # angle = math.radians(math.atan(dx/dy))
-        # angle between robot and point
-
-        angle, robot_angle = self.get_angles(dict, botInfo)
-        # print("angle between robot and point: ", angle)
-
-        if angle>=180:
-            return True
-            # self.left_motor.setVelocity(-10)
-            # self.right_motor.setVelocity(10)
-        if angle<=180:
-            return False
-            # self.left_motor.setVelocity(10)
-            # self.right_motor.setVelocity(-10)
-
-
-
-
+        pass
 
     def run(self):
         frame = 0
-        currentRotation=-1
-        previousAngle=-1
         facing = False
-
-        x = 1
+        shoot = False
+        followBall = True
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
@@ -81,66 +43,30 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # Get the position of the ball
                 ball_pos = data['ball']
 
-                # Get angle between the robot and the ball
-                # and between the robot and the north
-                ball_angle, robot_angle = self.get_angles(ball_pos, robot_pos)
-                # 
-                # toTurn = self.turnToPoint([0.5,0.5],data)
-                # angle, robot_angle = self.get_angles(ball_pos, data[self.name])
-                #
-                # if facing==False:
-                #     self.left_motor.setVelocity(10)
-                #     self.right_motor.setVelocity(-10)
-                #     if abs(360-angle)>angle:
-                #         self.left_motor.setVelocity(10)
-                #         self.right_motor.setVelocity(-10)
-                #     if angle<360-angle:
-                #         self.left_motor.setVelocity(-10)
-                #         self.right_motor.setVelocity(10)
-                # if abs(angle)<=(12):
-                #     self.left_motor.setVelocity(-10)
-                #     self.right_motor.setVelocity(-10)
-                #     facing=True
-                #
-                # if angle>=40:
-                #     facing=False
-                # previousAngle=ball_angle
+                # Get angle between the robot and the ball and between the robot and the north
 
-                # if facing==True:
-                #     self.left_motor.setVelocity(0)
-                #     self.right_motor.setVelocity(0)
+                if followBall:
+                    # print('hi')
+                    ball_angle, robot_angle = self.get_angles(ball_pos, data[self.name])
+                    if facing:
+                        self.left_motor.setVelocity(-10)
+                        self.right_motor.setVelocity(-10)
+                    if not facing:
+                        # print('hi')
+                        if abs(360-ball_angle)<ball_angle:
+                            self.left_motor.setVelocity(8)
+                            self.right_motor.setVelocity(-8)
+                        if ball_angle<abs(360-ball_angle):
+                            self.left_motor.setVelocity(-8)
+                            self.right_motor.setVelocity(8)
+                        if abs(ball_angle)<=(12):
+                            facing=True
 
-
-                # print("facing: ",facing)
-                # if toTurn:
-                #     self.left_motor.setVelocity(-10)
-                #     self.right_motor.setVelocity(10)
-                # if not toTurn:
-                #     self.left_motor.setVelocity(10)
-                #     self.right_motor.setVelocity(-10)
-
-            #     print("ball angle: ", ball_angle)
-
-                # print("robot angle: ", robot_angle)
-
-                # Compute the speed for motors
-                direction = utils.get_direction(ball_angle)
-
-                # If the robot has the ball right in front of it, go forward,
-                # # rotate otherwise
-                if direction == 0:
-                    left_speed = -10
-                    right_speed = -10
-                else:
-                    left_speed = direction * 4
-                    right_speed = direction * -4
-
-                # Set the speed to motors
-                self.left_motor.setVelocity(left_speed)
-                self.right_motor.setVelocity(right_speed)
-                frame += 1
-
-                #if
+                    if frame % 25==0:
+                        facing=False
+                    # if ball_angle>=40:
+                    #     # print('pee')
+                    #     facing=False
 
 
 my_robot = MyRobot()
